@@ -34,7 +34,7 @@ class ListingFactory extends Factory
             'lien' => $this->faker->url,
             'created_at' => $datetime,
             'updated_at' => $datetime,
-            'user_id' => \App\Models\User::inRandomOrder()->first()->id,
+
         ];
     }
 }
