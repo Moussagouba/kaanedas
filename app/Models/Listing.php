@@ -9,6 +9,10 @@ class Listing extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     public function clicks()
     {
         return $this->hasMany(Listing::class);

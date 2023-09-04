@@ -26,7 +26,7 @@ class ListingController extends Controller
             $query->where(function (Builder $builder) use ($searchQuery) {
                 $builder
                     ->orWhere('title', 'like', "%{$searchQuery}%")
-                    ->orWhere('company', 'like', "%{$searchQuery}%")
+                    ->orWhere('compagny', 'like', "%{$searchQuery}%")
                     ->orWhere('location', 'like', "%{$searchQuery}%");
             });
         }
@@ -72,7 +72,7 @@ class ListingController extends Controller
         // process the listing creation form
         $validationArray = [
             'title' => 'required',
-            'company' => 'required',
+            'compagny' => 'required',
             'logo' => 'file|max:2048',
             'location' => 'required',
             'lien' => 'required|url',
@@ -120,7 +120,7 @@ class ListingController extends Controller
                 ->create([
                     'title' => $request->title,
                     'slug' => Str::slug($request->title) . '-' . rand(1111, 9999),
-                    'company' => $request->company,
+                    'compagny' => $request->company,
                     'logo' => basename($request->file('logo')->store('public')),
                     'location' => $request->location,
                     'lien' => $request->apply_link,
