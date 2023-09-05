@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use ParsedownExtra;
 
 class ListingController extends Controller
 {
@@ -51,6 +52,12 @@ class ListingController extends Controller
         return view('listings.show', compact('listing'));
     }
 
+    /**
+     * Summary of apply
+     * @param \App\Models\Listing $listing
+     * @param \Illuminate\Http\Request $request on recuperer l'ip de l'utilisateur au click
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     */
     public function apply(Listing $listing, Request $request)
     {
         $listing->clicks()
@@ -59,7 +66,7 @@ class ListingController extends Controller
                 'ip' => $request->ip()
             ]);
 
-        return redirect()->to($listing->apply_link);
+        return redirect()->to($listing->lien);
     }
 
     public function create()
@@ -69,7 +76,7 @@ class ListingController extends Controller
 
     public function store(Request $request)
     {
-        // process the listing creation form
+        // proceder a une nouvelle ajoute de service
         $validationArray = [
             'title' => 'required',
             'compagny' => 'required',
@@ -90,7 +97,7 @@ class ListingController extends Controller
 
         $request->validate($validationArray);
 
-        // is a user signed in? if not, create one and authenticate
+        //est ce que l'utilisateur est connecter sinon creer et connecter
         $user = Auth::user();
 
         if (!$user) {
@@ -105,25 +112,25 @@ class ListingController extends Controller
             Auth::login($user);
         }
 
-        // process the payment and create the listing
+        // on procede au payment et au listage
         try {
-            $amount = 9900; // $99.00 USD in cents
+            $amount = 599; //
             if ($request->filled('tres_recherche')) {
-                $amount += 1900;
+                $amount += 200;
             }
 
             $user->charge($amount, $request->payment_method_id);
 
-            $md = new \ParsedownExtra();
+            $md = new ParsedownExtra();
 
             $listing = $user->listings()
                 ->create([
                     'title' => $request->title,
                     'slug' => Str::slug($request->title) . '-' . rand(1111, 9999),
-                    'compagny' => $request->company,
+                    'compagny' => $request->compagny,
                     'logo' => basename($request->file('logo')->store('public')),
                     'location' => $request->location,
-                    'lien' => $request->apply_link,
+                    'lien' => $request->lien,
                     'content' => $md->text($request->input('content')),
                     'tres_recherche' => $request->filled('tres_recherche'),
                     'est_active' => true

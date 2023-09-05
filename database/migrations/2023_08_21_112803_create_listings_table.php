@@ -18,7 +18,7 @@ class CreateListingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->string('slug');
-            $table->string('compagny');
+            $table->string('compagny')->nullable();
             $table->string('location');
             $table->string('logo')->nullable();
             $table->boolean('tres_recherche')->default(false);
