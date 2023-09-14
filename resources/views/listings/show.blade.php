@@ -1,4 +1,11 @@
 <x-app-layout>
+    <style>
+        .bodyclass {
+            background: linear-gradient(135deg, #4a90e2 0%, #ff70a6 100%);
+
+        }
+    </style>
+
     <section class="text-gray-600 body-font overflow-hidden">
         <div class="container px-5 py-24 mx-auto">
             <div class="mb-12 md:flex"> <!-- Utilisation de md:flex pour la mise en page côte à côte sur les écrans de taille moyenne et plus grands -->
@@ -19,7 +26,7 @@
                         <strong>Pays: </strong>{{ $listing->location }}<br>
                         <strong>Nom du Lieu ou service: </strong>{{ $listing->compagny }}
                     </p>
-                    <a href="#pasencoreajoutersinoncestcomment" class="block text-center my-4 tracking-wide bg-white text-indigo-500 text-sm font-medium title-font py-2 border border-indigo-500 hover:bg-indigo-500 hover:text-white uppercase">Discuter Maintenant</a>
+                    <a href="{{ route('listings.apply', $listing->slug) }}" class="block text-center my-4 tracking-wide bg-white text-indigo-500 text-sm font-medium title-font py-2 border border-indigo-500 hover:bg-indigo-500 hover:text-white uppercase">Discuter Maintenant</a>
                 </div>
             </div>
         </div>

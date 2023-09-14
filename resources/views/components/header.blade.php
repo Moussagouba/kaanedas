@@ -1,4 +1,4 @@
-<header class="text-gray-600 body-font border-b border-gray-100">
+<header class="text-gray-600 body-font border-b border-gray-100 bodyclass">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <a href="{{ route('listings.index') }}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
@@ -14,5 +14,13 @@
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
         </a>
+
+        <!-- Bouton de déconnexion -->
+        @auth
+        <form method="POST" action="{{ route('logout') }}" class="ml-5">
+            @csrf
+            <button type="submit" class="text-gray-600 hover:text-gray-900">Déconnexion</button>
+        </form>
+        @endauth
     </div>
 </header>
