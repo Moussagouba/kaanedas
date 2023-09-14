@@ -51,7 +51,14 @@
                 </div>
                 <br>
             </div>
+
         </div>
         <br>
+        <div class="mt-4 flex justify-center">
+            <div class="bg-white p-2 rounded-lg shadow-lg transition hover:shadow-xl">
+                {{ $listings->links() }}
+            </div>
+        </div>
+
     </section>
 </x-app-layout>

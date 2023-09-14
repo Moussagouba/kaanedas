@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use App\Models\Tag;
 use App\Models\User;
-use  App\Models\Click;
+use App\Models\Click;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,8 @@ class ListingController extends Controller
             });
         }
 
-        $listings = $query->get();
+        // Utilisation de la pagination ici
+        $listings = $query->paginate(5); // 5 éléments par page
 
         $tags = Tag::orderBy('name')
             ->get();
